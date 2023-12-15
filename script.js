@@ -1,70 +1,113 @@
-// Get a random choice of Computer
-function getComputerChoice() {
-    const choiceArray = ["rock", "paper", "scissors"]
-    let randomChoice = choiceArray[Math.floor(Math.random()*choiceArray.length)];
-    return randomChoice;
-}
+const options = document.querySelectorAll(".playerSelect");
+let pScore = 0;
+let cScore = 0;
+const playerScore = document.querySelector(".playerScore");
+const computerScore = document.querySelector(".computerScore");
+const result = document.querySelector(".result");
+const finalResult = document.querySelector(".finalResult");
 
-// Play Rock-Paper-Scissors game for just one round
+
+// Each button press by user
+options.forEach((select) => {
+    select.addEventListener("click", function() {
+        finalResult.textContent = null;
+        const playerSelection = this.textContent.toLowerCase();
+        
+
+        const choiceArray = ["rock", "paper", "scissors"]
+        const computerSelection = choiceArray[Math.floor(Math.random() * choiceArray.length)];
+
+        playRound(playerSelection, computerSelection);
+        updateScore(pScore, cScore);
+
+        soundEffect(playerSelection);
+
+        if (checkWinner()) {
+            pScore = cScore = 0;
+            updateScore(pScore, cScore);
+            result.textContent = null;
+        } 
+
+    });
+});
+
+
+// The whole logic of the game 
 function playRound(playerSelection, computerSelection) {
-    switch (playerSelection.toLowerCase()) {
-        case "rock":
-            switch (computerSelection) {
-                case "scissors":
-                    return "You win! Rock breaks Scissors.";
-                case "paper":
-                    return "You lose! Paper covers Rock.";
-                default:
-                    return "It's a Tie!";
-            }
-        case "paper":
-            switch (computerSelection) {
-                case "rock":
-                    return "You win! Paper covers Rock.";
-                case "scissors":
-                    return "You lose! Scissors tears Paper.";
-                default:
-                    return "It's a Tie!";
-            }
-        case "scissors":
-            switch (computerSelection) {
-                case "paper":
-                    return "You win! Scissors tears Paper.";
-                case "rock":
-                    return "You lose! Rock breaks Scissors.";
-                default:
-                    return "It's a Tie!";
-            }
-        default:
-            return "Please type correctly!";
-    }
-}
+    if (playerSelection === computerSelection) {
+        result.textContent = "It's a Tie!";
 
-// Play the game for 5 rounds
-function game() {
-    let pScore = 0;
-    let cScore = 0;
-    for (let i=0; i<5; i++) {
-        const playerSelection = prompt("What's Your Choice?");
-        const computerSelection = getComputerChoice();
-        const play = playRound(playerSelection, computerSelection);
-        console.log(play);
-        if (play.match("win")) {
-            pScore++;
-        } else if (play.match("lose")) {
-            cScore++;
-        } else {
-            i--;
+    } else if (playerSelection === "rock") {
+
+        if (computerSelection === "scissors") {
+            result.textContent = "You win! Rock breaks Scissors." ;
+            pScore++ ;
+
+        } else if (computerSelection === "paper") {
+            result.textContent = "You lose! Paper covers Rock." ;
+            cScore++ ;
+        }
+
+    } else if (playerSelection === "paper") {
+
+        if (computerSelection === "rock") {
+            result.textContent = "You win! Paper cover Rock." ;
+            pScore++ ;
+
+        } else if (computerSelection === "scissors") {
+            result.textContent = "You lose! Scissors tear Paper." ;
+            cScore++ ;
+        }
+
+    } else if (playerSelection === "scissors") {
+
+        if (computerSelection === "paper") {
+            result.textContent = "You win! Scissor tears Paper." ;
+            pScore++ ;
+
+        } else if (computerSelection === "rock") {
+            result.textContent = "You lose! Rock breaks Scissors." ;
+            cScore++ ;
         }
     }
-    console.log(`Player Score: ${pScore}`);
-    console.log(`Computer Score: ${cScore}`);
-    
-    if (pScore > cScore) {
-        console.log("Yeah! You win the games.");
-    } else {
-        console.log("Ah! You lose the games.")
-    }
 }
 
-game();
+function updateScore(pScore, cScore) {
+    playerScore.textContent = pScore;
+    computerScore.textContent = cScore;
+}
+
+function checkWinner() {
+    if (pScore === 5) {
+        const message = "Congratulations! You win! Here's the pie 🥧.";
+        const winnerCheer = new Audio("./sound-effects/winnerCheer.mp3");
+        winnerCheer.play();
+        finalResult.textContent = message;
+        return true;
+
+    } else if (cScore === 5) {
+        const message = "Uh-oh! You lose! Maybe, next time.";
+        const loseSound = new Audio("./sound-effects/loseSound.mp3");
+        loseSound.play();
+        finalResult.textContent = message;
+        return true;
+
+    } else {
+        return false;
+    }       
+
+}
+
+function soundEffect(playerSelection) {
+    if (playerSelection === "rock") {
+        let rockSound = new Audio("./sound-effects/Rock.mp3");
+        rockSound.play();
+    } else if (playerSelection === "paper") {
+        let paperSound = new Audio("./sound-effects/Paper.mp3");
+        paperSound.play();
+    } else if (playerSelection === "scissors") {
+        let scissorsSound = new Audio("./sound-effects/Scissors.mp3");
+        scissorsSound.play();
+    } 
+
+}

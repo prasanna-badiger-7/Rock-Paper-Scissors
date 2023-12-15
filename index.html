@@ -3,11 +3,57 @@
     <head>
         <meta charset="UTF-8" lang="en">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Rock-Paper-Scissors game</title>
-
+        <title>Rock-Paper-Scissors Game</title>
+        <link rel="stylesheet" href="./style.css">
+        <script defer src="./script.js"></script> <!--defer makes the script to load at the end, just before DOM-->
     </head>
+
     <body>
-        <h1>Please open the console to play!</h1>
-        <script src="./script.js"></script>
+        <div class="container">
+            <div class="title">Rock Paper Scissors</div>
+            
+            <div class="about">
+                A fun and easy hand game that anyone can learn and enjoy. It's a great way to make minor 
+                decisions when you and your friend can't agree on something, or even just an entertaining 
+                way to pass the time.
+            </div>
+            
+            <!--Display of scores-->
+            <div class="score">
+                <div class="player">
+                    Player Score
+                    <div class="playerScore">0</div>
+
+                </div> 
+                <div class="computer">
+                    Computer Score
+                    <div class="computerScore">0</div>
+
+                </div>
+            </div>
+
+            <div class="condition">
+                First to score 5 points, gets this pie 🥧 !
+            </div>
+            
+            <div class="choice">
+                Make your choice:
+            </div>
+
+            <!--Choices for the player, to choose from-->
+            <div class="options">
+                <button class="playerSelect" onclick="rockSound">Rock</button>
+                <button class="playerSelect" onclick="paperSound">Paper</button>
+                <button class="playerSelect" onclick="scissorsSound">Scissors</button>
+            </div>
+
+            <!--Result of every round-->
+            <div class="result"></div>
+
+            <!--Overall winner-->
+            <div class="finalResult"></div>
+
+        </div>
+        
     </body>
 </html>
