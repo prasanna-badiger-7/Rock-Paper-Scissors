@@ -31,6 +31,10 @@
 
                 </div>
             </div>
+
+            <div class="condition">
+                First to score 5 points, gets this pie 🥧 !
+            </div>
             
             <div class="choice">
                 Make your choice:
@@ -38,16 +42,17 @@
 
             <!--Choices for the player, to choose from-->
             <div class="options">
-                <button class="rock">Rock</button>
-                <button class="paper">Paper</button>
-                <button class="scissors">Scissors</button>
+                <button class="playerSelect" onclick="rockSound">Rock</button>
+                <button class="playerSelect" onclick="paperSound">Paper</button>
+                <button class="playerSelect" onclick="scissorsSound">Scissors</button>
             </div>
 
-            <!--Result of every game and final winner-->
+            <!--Result of every round-->
             <div class="result"></div>
 
-            <!--Play again!-->
-            <div class="replay"></div>
+            <!--Overall winner-->
+            <div class="finalResult"></div>
+
         </div>
         
     </body>
