@@ -91,3 +91,14 @@ button {
     margin-bottom: 20px;
 }
 
+.footer {
+    font-size: 20px;
+    padding: 5px;
+    text-align: center;
+}
+
+.footer img {
+    width: 50px;
+    height: auto;
+}
+
